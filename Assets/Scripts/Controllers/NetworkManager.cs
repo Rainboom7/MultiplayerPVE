@@ -58,13 +58,11 @@ namespace Controllers
         }
         public override void OnJoinedLobby()
         {
-            Debug.Log("OnJoinedLobby");
         }
         public override void OnJoinedRoom()
         {
             LobbyView.Open();
             LobbyView.UpdateLobby(PhotonNetwork.PlayerList);
-            Debug.Log("OnJoinedRoom");
             base.OnJoinedRoom();
 
         }
@@ -115,7 +113,6 @@ namespace Controllers
         }
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
-            Debug.Log("OnCreateRoomFailed");
             base.OnCreateRoomFailed(returnCode, message);
             MainMenu.Open();
 
@@ -123,7 +120,6 @@ namespace Controllers
         public override void OnConnectedToMaster()
         {
             LoadingText.SetActive(false);
-            Debug.Log("OnConnectedToMaster");
             MainMenu.gameObject.SetActive(true);
      
         }
@@ -137,7 +133,6 @@ namespace Controllers
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
-            Debug.Log("OnLeftRoom");
         }
         public override void OnDisconnected(DisconnectCause cause)
         {

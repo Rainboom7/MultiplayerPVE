@@ -7,9 +7,10 @@ namespace Objects
     public class StunAbility : SpawnedAbility
     {
         private List<Enemy> _enemiesInRange = new List<Enemy>();
-
+        public Animator Animator;
         public override void Use()
         {
+            Animator.Play("ActivateAnimation");
             foreach (Enemy enemy in _enemiesInRange)
             {
                 enemy.Stun();

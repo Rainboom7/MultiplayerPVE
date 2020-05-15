@@ -51,11 +51,11 @@ namespace Objects
         public void Stun()
         {
             PhotonView.RPC("StunRPC", RpcTarget.MasterClient);
-
         }
         [PunRPC]
         public void StunRPC() {
-            Movement.Speed = 0;
+            if(Movement!=null)
+                Movement.Speed = 0;
         }
         public void Die() {        
             PhotonView.RPC("DieRPC", RpcTarget.MasterClient);          

@@ -7,10 +7,12 @@ namespace Objects
     public class HealingAbility : SpawnedAbility
     {
         public float HealAmount;
+        public Animator Animator;
         private List<Player> _playersInRange = new List<Player>();
 
         public override void Use()
         {
+            Animator.Play("ActivateAnimation");
             foreach (Player player in _playersInRange)
             {
                 player.Health.Heal(HealAmount);
