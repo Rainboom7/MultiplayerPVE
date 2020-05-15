@@ -18,10 +18,11 @@ namespace Views
     public class HudView : BaseView, IHudView
 	{
         public List<PlayerScoreView> PlayerInfos;
-        public  void UpdateBoard(List<Photon.Realtime.Player> newPlayerList)
+        public Text Cooldown;
+        public void UpdateBoard(List<Photon.Realtime.Player> newPlayerList)
         {
             int i;
-            for (i=0; i < PlayerInfos.Capacity && i < newPlayerList.Capacity; i++)
+            for (i = 0; i < PlayerInfos.Capacity && i < newPlayerList.Capacity; i++)
             {
                 PlayerInfos[i].Name = newPlayerList[i].NickName;
                 PlayerInfos[i].Score = ScoreExtensions.GetScore(newPlayerList[i]);
@@ -34,6 +35,13 @@ namespace Views
                 PlayerInfos[i].UpdateView();
                 i++;
             }
+        }
+        public void ChangeCooldown(int seconds)
+        {
+            if (seconds <= 0)
+                Cooldown.text = "Ready";
+            else
+                Cooldown.text = seconds.ToString();
         }
       
         

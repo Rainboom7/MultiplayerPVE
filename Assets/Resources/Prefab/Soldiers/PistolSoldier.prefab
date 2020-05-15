@@ -358,6 +358,8 @@ MonoBehaviour:
   Movement: {fileID: 2314320840926206898}
   Health: {fileID: 2314320840926206890}
   Weapon: {fileID: 6584697795513414068}
+  AbilityCooldown: 30
+  AbilityPrefabPath: Prefab/Abilities/HealthPack
 --- !u!114 &-6908594334395712624
 MonoBehaviour:
   m_ObjectHideFlags: 0

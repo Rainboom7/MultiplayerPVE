@@ -19,7 +19,7 @@ namespace Controllers
     {
         [HideInInspector]
         public FollowCamera FollowCamera;
-
+        public HudView HudView;
         public Base Base { get; set; }
 
         private IGameView _view;
@@ -28,11 +28,15 @@ namespace Controllers
         {
             _view?.StartGame();
         }
-        public void StopGame() {
+        public void StopGame()
+        {
             if (Base != null)
                 Destroy(Base.gameObject);
             _view?.StopGame();
 
+        }
+        public void UpdateCooldown(int seconds) {
+            HudView?.ChangeCooldown(seconds);
         }
         
 		public void OnOpen(IGameView view)

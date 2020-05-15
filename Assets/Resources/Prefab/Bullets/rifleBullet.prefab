@@ -127,10 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a5e40390daa054da8fc77149ce54e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 15
   Damage: 10
-  Rigidbody: {fileID: -4916836322330751381}
   PhotonView: {fileID: 3914406215066947649}
+  Rigidbody: {fileID: -4916836322330751381}
+  Speed: 15
 --- !u!114 &3914406215066947649
 MonoBehaviour:
   m_ObjectHideFlags: 0

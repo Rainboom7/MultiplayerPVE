@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Objects
 {
-    public class Spawner : MonoBehaviour,IPunObservable
+    public class Spawner : MonoBehaviour
     {
         [Range(0.5f, 10)]
         public float SpawnTime;
@@ -29,12 +29,6 @@ namespace Objects
                 _spawnRoutine = null;
             }
         }
-
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            
-        }
-
         private IEnumerator SpawnRoutine
         {
             get

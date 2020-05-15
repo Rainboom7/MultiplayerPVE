@@ -32,6 +32,7 @@ namespace Controllers
             LobbyView.LeaveLobbyEvent += LeaveLobby;
             EndGameView.LeaveEvent += LeaveLobby;
             MainMenu.NetworkManager = this;
+            Controller.HudView = HudView;
         }
 
         public bool IsPlayerSelected()

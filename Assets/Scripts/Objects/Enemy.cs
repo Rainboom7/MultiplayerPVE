@@ -24,12 +24,10 @@ namespace Objects
 
         private Photon.Realtime.Player _killer;
         private float _healthPoints;
-     
-
 
         private void OnEnable()
-        {          
-           _healthPoints = Health.Hitpoints;
+        {
+            _healthPoints = Health.Hitpoints;
             Movement.Speed = Speed;
             if (Base != null)
                 Movement.MovePosition(Base.transform.position);
@@ -42,39 +40,42 @@ namespace Objects
         }
         public void Damage(float value, Photon.Realtime.Player attacker)
         {
-            Health.Damage(value);
             PhotonView.RPC("SetKillerRpc", RpcTarget.MasterClient, attacker);
+            Health.Damage(value);
         }
         [PunRPC]
         public void SetKillerRpc(Photon.Realtime.Player attacker)
         {
             _killer = attacker;
         }
-        public void Die() {
-            ScoreExtensions.AddScore(_killer, ScoreCost);
-            PhotonView.RPC("DieRPC", RpcTarget.All);
+        public void Stun()
+        {
+            PhotonView.RPC("StunRPC", RpcTarget.MasterClient);
+
+        }
+        [PunRPC]
+        public void StunRPC() {
+            Movement.Speed = 0;
+        }
+        public void Die() {        
+            PhotonView.RPC("DieRPC", RpcTarget.MasterClient);          
         }
         [PunRPC]
         public void DieRPC()
-        {            
-            Destroy(gameObject);
+        {
+            if (_killer != null)
+                ScoreExtensions.AddScore(_killer, ScoreCost);
+            PhotonNetwork.Destroy(gameObject);
         }
         
-        private void Update()
-        {
-            if (!PhotonNetwork.IsMasterClient)
-            {            
-                Health.SetHp(_healthPoints);
-            }
-        }
         public void ChangeTarget(GameObject target)
         {
 
             if (target != null)
-                Movement.MovePosition(target.transform.position);
+                Movement?.MovePosition(target.transform.position);
             else if (Base != null)
             {
-                Movement.MovePosition(Base.transform.position);
+                Movement?.MovePosition(Base.transform.position);
             }
 
         }
@@ -86,29 +87,19 @@ namespace Objects
             {
                 var health = collision.gameObject.GetComponent<PlayerController>();
                 health?.Damage(DamageToPlayer);
-                PhotonView.RPC("DieRPC", RpcTarget.All);
+                Die();
             }
             if (collision.gameObject.GetComponent<Base>() != null)
             {
                 var health = collision.gameObject.GetComponent<Health>();
                 health?.Damage(DamageToBase);
-                PhotonView.RPC("DieRPC", RpcTarget.All);
+                Die();
             }
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (stream.IsWriting)
-            {
-           
-                stream.SendNext(Health.Currenthealth);
-            }
-            else if (stream.IsReading)
-            {
-            
-                _healthPoints = (float)stream.ReceiveNext();
-          
-            }
+       
         }
     }
 }

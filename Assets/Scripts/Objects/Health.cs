@@ -11,7 +11,7 @@ namespace Objects
     {
         public RectTransform Line;
         public event Action DieEvent;
-        private Vector2 _healthSize;
+        private Vector3 _healthSize;
         [Range(0, 200)]
         public float Hitpoints;
         public PhotonView PhotonView;
@@ -19,19 +19,33 @@ namespace Objects
         private void OnEnable()
         {
             Currenthealth = Hitpoints;
+            _healthSize = Line.localScale;
             ChangeView();
 
         }
-        public void Damage(float damage) {
-            PhotonView?.RPC("DamageRPC", RpcTarget.All,damage);
+        public void Damage(float damage)
+        {
+            if (Currenthealth-damage <= 0)
+                DieEvent?.Invoke();
+            else
+                PhotonView?.RPC("DamageRPC", RpcTarget.All, damage);
+        }
+        public void Heal(float value)
+        {
+            PhotonView?.RPC("HealRPC", RpcTarget.All, value);
+        }
+
+        [PunRPC]
+        public void HealRPC(float value) {
+            Currenthealth += value;
+            Currenthealth = Math.Min(Currenthealth, Hitpoints);
+            ChangeView();
         }
 
         [PunRPC]
         public void DamageRPC(float damage)
         {
             Currenthealth -= damage;
-            if (Currenthealth <= 0)
-                DieEvent?.Invoke();
             ChangeView();
         }
         public void SetHp(float points)
@@ -43,8 +57,7 @@ namespace Objects
         }
         private void ChangeView()
         {
-            Line.localScale *= Currenthealth / Hitpoints;
-            
+            Line.localScale =_healthSize* (Currenthealth / Hitpoints);      
         }
 
 

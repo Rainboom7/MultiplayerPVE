@@ -7,6 +7,8 @@ namespace Objects
     public class Player : Character
     {
         public Weapon Weapon;
+        public float AbilityCooldown;
+        public string AbilityPrefabPath;
         public bool Fire(Vector3 target)
         {
             if (Weapon == null)

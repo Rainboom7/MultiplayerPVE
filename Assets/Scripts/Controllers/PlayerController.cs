@@ -23,6 +23,7 @@ namespace Controllers
         private Vector3 _correctVelocity = Vector3.zero;
         private float _healthPoints;
         private int _ammo;
+        private float _cooldownTimer;
       
 
 
@@ -75,12 +76,19 @@ namespace Controllers
             if (PhotonView.IsMine)
                 Controller.FollowCamera.Target = transform;
             PlayerName = (string)PhotonView.Controller.CustomProperties["PlayerName"];
+            _cooldownTimer = Player.AbilityCooldown;
         }
 
         private void Update()
         {
             if (PhotonView.IsMine)
             {
+                if (_cooldownTimer > 0)
+                {
+                    _cooldownTimer -= Time.deltaTime;
+                    Controller.UpdateCooldown((int)_cooldownTimer);
+                }
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     Ray castPoint = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -99,6 +107,15 @@ namespace Controllers
                         Fire(hit);
                     }
                 }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (_cooldownTimer <= 0)
+                    {
+                        PhotonNetwork.Instantiate(Player.AbilityPrefabPath, transform.position, Quaternion.identity);
+                        _cooldownTimer = Player.AbilityCooldown;
+                    }
+                }
+                
             }
             else
             {

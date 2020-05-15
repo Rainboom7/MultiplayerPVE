@@ -266,6 +266,8 @@ MonoBehaviour:
   Movement: {fileID: 2687636474857757296}
   Health: {fileID: 2687636474857757288}
   Weapon: {fileID: 6788035594622136438}
+  AbilityCooldown: 1
+  AbilityPrefabPath: Prefab/Abilities/Turret
 --- !u!114 &7179261785707482971
 MonoBehaviour:
   m_ObjectHideFlags: 0
