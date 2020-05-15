@@ -12,7 +12,7 @@ namespace Objects
 
         public override void Use()
         {
-            Animator.Play("ActivateAnimation");
+            PhotonView.RPC("AnimateRPC", RpcTarget.All, "ActivateAnimation");
             foreach (Player player in _playersInRange)
             {
                 player.Health.Heal(HealAmount);
@@ -35,6 +35,11 @@ namespace Objects
                 _playersInRange.Remove(player);
             }
         }
-        
+        [PunRPC]
+        public void AnimateRPC(string animation)
+        {
+            Animator.Play(animation);
+        }
+
     }
 }

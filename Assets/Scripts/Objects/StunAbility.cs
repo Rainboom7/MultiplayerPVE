@@ -10,7 +10,7 @@ namespace Objects
         public Animator Animator;
         public override void Use()
         {
-            Animator.Play("ActivateAnimation");
+            PhotonView.RPC("AnimateRPC", RpcTarget.All, "ActivateAnimation");
             foreach (Enemy enemy in _enemiesInRange)
             {
                 enemy.Stun();
@@ -33,6 +33,10 @@ namespace Objects
                 _enemiesInRange.Remove(enemy);
             }
         }
-
+        [PunRPC]
+        public void AnimateRPC(string animation)
+        {
+            Animator.Play(animation);
+        }
     }
 }
