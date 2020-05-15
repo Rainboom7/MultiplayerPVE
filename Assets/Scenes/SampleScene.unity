@@ -940,7 +940,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c9d26d21484e5ec40b80c17862a9df0a, type: 2}
+  - {fileID: 2100000, guid: 9a4e7b5ffaf7448428c8f2e86fdcff0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1918,6 +1918,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Canvas '
       objectReference: {fileID: 0}
+    - target: {fileID: 580820883592866716, guid: 95420cefcf8533c4a8218473d2924c9e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 580820883755974496, guid: 95420cefcf8533c4a8218473d2924c9e,
         type: 3}
       propertyPath: Cooldown
@@ -1956,7 +1961,7 @@ PrefabInstance:
     - target: {fileID: 580820884362372133, guid: 95420cefcf8533c4a8218473d2924c9e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 580820884559140103, guid: 95420cefcf8533c4a8218473d2924c9e,
         type: 3}
@@ -2026,7 +2031,7 @@ PrefabInstance:
     - target: {fileID: 1882781670494645479, guid: 95420cefcf8533c4a8218473d2924c9e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2066534160272899017, guid: 95420cefcf8533c4a8218473d2924c9e,
         type: 3}
