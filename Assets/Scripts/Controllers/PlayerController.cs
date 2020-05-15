@@ -130,7 +130,7 @@ namespace Controllers
         public void Die() {
             if (PhotonView.IsMine)
             {
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
                 Controller.FollowCamera?.SetDefaultPosition();
             }
             
